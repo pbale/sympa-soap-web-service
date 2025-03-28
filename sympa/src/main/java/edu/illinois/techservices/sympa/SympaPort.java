@@ -9,7 +9,6 @@ import jakarta.jws.soap.SOAPBinding;
 @WebService(targetNamespace = "https://lists-dev.techservices.illinois.edu/lists/wsdl")
 @SOAPBinding(style = SOAPBinding.Style.DOCUMENT)
 public interface SympaPort {
-    
     @WebMethod
     String createList(@WebParam(name = "listname") String listname);
     
@@ -20,6 +19,6 @@ public interface SympaPort {
     // String subscribe(@WebParam(name = "listname") String listname, 
     //                 @WebParam(name = "email") String email);
 
-    // @WebMethod
-    // String 
+    @WebMethod
+    String login(@WebParam(name = "email") String email, @WebParam(name = "password") String password);
 } 
