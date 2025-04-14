@@ -1,0 +1,13 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns="urn:sympasoap"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Header/>
+  <SOAP-ENV:Body>
+    <ns:login>
+      <email xsi:type="xsd:string">{netID}</email>
+      <password xsi:type="xsd:string">{password}</password>
+    </ns:login>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

@@ -1,0 +1,12 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns="urn:sympasoap"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Header/>
+  <SOAP-ENV:Body>
+    <ns:lists>
+      <session xsi:type="xsd:string">{session cookie}</session> 
+    </ns:lists>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
