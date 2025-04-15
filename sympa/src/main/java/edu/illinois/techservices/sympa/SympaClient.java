@@ -13,13 +13,13 @@ public class SympaClient {
   static String email = System.getenv("SYMPA_EMAIL");
   static String password = System.getenv("SYMPA_PASSWORD");
   
+  
   /**
    * Log in to sympa server and retrieve session cookie to pass it on to subsequent request.
    * @return
    */
   public static String loginSympa() {
 
-    SOAPMessage response = null;
     try {
       MessageFactory messageFactory = MessageFactory.newInstance();
       SOAPMessage soapMessage = messageFactory.createMessage();
@@ -57,7 +57,7 @@ public class SympaClient {
       System.out.println("\n");
       //response = sendSOAPRequest(soapMessage);
 
-      System.out.println("\n Call SoapConnection.call() : \n");
+      System.out.println("\n SoapConnection.call() : \n");
 
       // Create a SOAP connection
       SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
@@ -66,12 +66,12 @@ public class SympaClient {
       // Send the SOAP message to the endpoint
       SOAPMessage soapResponse = soapConnection.call(soapMessage, sympaSoapUrl);
 
-      System.out.println("\n Print SoapConnection.call() Response: \n");
+      System.out.println("\n Login Response: \n");
       printSOAPMessage(soapResponse);
 
       sessionCookie = grabSessionCookie(soapResponse);
       // Close the connection
-     // soapConnection.close();
+      soapConnection.close();
     } catch(Exception e) {
         System.out.println("\n THE ERROR...\n");
         e.printStackTrace();
@@ -131,7 +131,7 @@ public class SympaClient {
       //headers.addHeader("Authorization", encodedAuth);
       headers.addHeader("Content-Type", "text/xml"); //application/soap+xml
       headers.addHeader("SOAPAction", "urn:sympasoap#lists"); 
-      headers.addHeader("cookie", cookie);
+      headers.addHeader("Cookie", "sympa_session="+cookie);
       SOAPBody soapBody = envelope.getBody();
       
       SOAPElement soapElement = soapBody.addChildElement("lists", "ns", "urn:sympasoap");
@@ -139,19 +139,22 @@ public class SympaClient {
       SOAPElement param1 = soapElement.addChildElement("topic", "ns");
       param1.addTextNode("science");
       param1.addAttribute(new QName("xsi:type"), "xsd:string");
-      
+
       SOAPElement param2 = soapElement.addChildElement("subtopic", "ns");
       param2.addTextNode("physics");
       param2.addAttribute(new QName("xsi:type"), "xsd:string");
       
       soapMessage.saveChanges();
 
+      System.out.println("\n  Soap Call for Lists ");
       // Create a SOAP connection
       SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
       SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 
       // Send the SOAP message to the endpoint
       SOAPMessage lists = soapConnection.call(soapMessage, sympaSoapUrl);
+
+      System.out.println("\n Lists Response : ");
       printSOAPMessage(lists);
 
     } catch(Exception e) {
